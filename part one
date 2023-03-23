@@ -1,0 +1,171 @@
+set serveroutput on;
+
+--creating tables
+CREATE TABLE employee(
+empoyeeID NUMBER PRIMARY KEY,
+egn VARCHAR2(10) NOT NULL,
+firstName VARCHAR2(105) NOT NULL,
+lastName VARCHAR2(105) NOT NULL,
+additionalName VARCHAR2(105),
+address VARCHAR2(105),
+phone VARCHAR2(35) NOT NULL,
+email VARCHAR2(40) NOT NULL,
+job_desc VARCHAR2(105),
+departamentID NUMBER,
+managerID NUMBER
+);
+CREATE TABLE department(
+departamentID NUMBER,
+departmantName VARCHAR2(105),
+dep_desc VARCHAR2(105),
+primary key(departamentID)
+);
+ALTER TABLE employee
+ADD CONSTRAINT fk_department
+  FOREIGN KEY (departamentID)
+  REFERENCES department(departamentID);
+CREATE TABLE customer(
+customerID NUMBER PRIMARY KEY,
+egn VARCHAR2(10) NOT NULL,
+firstName VARCHAR2(105) NOT NULL,
+lastName VARCHAR2(105) NOT NULL,
+additionalName VARCHAR2(105),
+address VARCHAR2(105),
+phone VARCHAR2(35) NOT NULL,
+email VARCHAR2(40) NOT NULL
+);
+CREATE TABLE bankCard(
+bankID number not null primary key,
+holderID number not null,
+typeCard varchar(50),
+typeHolder varchar(50),
+mainCard char(1),
+foreign key(holderID) references customer
+);
+ALTER TABLE bankCard 
+ADD amount FLOAT NOT NULL;
+commit;
+
+-- inserts
+select * from department;
+
+insert into department
+values (1,'Операции','Операции');
+insert into department
+values (2,'Кредитен анализ','Кредитен анализ');
+insert into department
+values (3,'Картови разплащания','Картови разплащания');
+insert into department values (5, '?????????? ????????' , '?????????? ????????');
+
+insert into employee(empoyeeID, egn, firstName, lastName, additionalName, address, phone, email, job_desc, departamentID)
+values (1, '9515156545','Angel', 'Georgiev', '', 'Bulgaria', '0895465456', 'angelbgpl@gmail.com', 'Operator', 1);
+insert into employee(empoyeeID, egn, firstName, lastName, additionalName, address, phone, email, job_desc, departamentID)
+values (2,'9515356545','Vasil', 'Grigorov', '', 'Italy', '0895546456', 'vas@gmail.com', 'Cards', 3);
+insert into employee(empoyeeID, egn, firstName, lastName, additionalName, address, phone, email, job_desc, departamentID)
+values (3, '9713156145','Petar', 'Angelov', '', 'Bulgaria', '0895454556', 'Pet@gmail.com', 'Credit operator', 2);
+insert into employee(empoyeeID, egn, firstName, lastName, additionalName, address, phone, email, job_desc, departamentID)
+values (4, '9401023344', 'John', 'Doe', '', 'New York, USA', '+1 123 456 7890', 'johndoe@gmail.com', 'Credit operator', 2);
+insert into employee(empoyeeID, egn, firstName, lastName, additionalName, address, phone, email, job_desc, departamentID)
+values (5, '0546236372', 'Ivana', 'Cvetkova', 'Kostadinova','Sofia, Bulgaria', '0877962062', 'ik@abv.bg', 'Operator', 1);
+insert into employee(empoyeeID, egn, firstName, lastName, additionalName, address, phone, email, job_desc, departamentID)
+values (6, '9204032121', 'Sofia', 'Garcia', 'Rodriguez', 'Madrid, Spain', '+34 123 456 7890', 'sofiagarcia@gmail.com', 'Human Resources Manager', 4);
+insert into employee(empoyeeID, egn, firstName, lastName, additionalName, address, phone, email, job_desc, departamentID)
+values (7, '8601011212', 'Robert', 'Johnson', '', 'Los Angeles, USA', '+1 123 456 7890', 'robertjohnson@gmail.com', 'Human Resources Manager', 4);
+insert into employee(empoyeeID, egn, firstName, lastName, additionalName, address, phone, email, job_desc, departamentID)
+values (8, '9507076767', 'Peter', 'Petrov', '', 'Sofia, Bulgaria', '+359 888 123 456', 'peterpetrov@gmail.com', 'Customer Support Representative', 5);
+select * from employee;
+
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (1, '9213156145', 'Ivan', 'Ivanov', '', 'France', '0892165', 'iv@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (2, '9313156145', 'Georgi', 'Petrov', '', 'Bulgaria', '089216655', 'gi@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (3, '9613156145', 'Silvia', 'Ivanova', '', 'Germany', '089215465', 'siv@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (4, '9813156145', 'Stoyan', 'Stoyanov', '', 'Bulgaria', '089211165', 'sto@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (5, '9913156145', 'Maria', 'Ilieva', '', 'Italy', '089215465', 'mar@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (6, '9013156145', 'Nikolay', 'Nikolov', '', 'Spain', '089216565', 'nik@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (7, '9113156145', 'Anna', 'Georgieva', '', 'France', '089214465', 'ann@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (8, '9413156145', 'Ivaylo', 'Ivaylov', '', 'Germany', '089214365', 'iva@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (9, '9513156145', 'Petar', 'Dimitrov', '', 'Bulgaria', '089216465', 'pet@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (10, '9713156145', 'Stefan', 'Stefanov', '', 'Bulgaria', '089211365', 'ste@gmail.com');
+insert into customer (customerID, egn, firstName, lastName, additionalName, address, phone, email)
+values (11, '9813156145', 'Elena', 'Ivanova', '', 'Spain', '089213465', 'ele@gmail.com');
+commit;
+
+
+select * from department;
+update department set department.departmantname = 'Operation', department.dep_desc = 'Operation'  where department.departamentid = 1;
+update department set departmantName = 'Credit', dep_desc = 'Credit'  where departamentID = 2;
+update department set departmantName = 'Card payment', dep_desc = 'Card payment'  where departamentID = 3;
+update department set departmantName = 'HR', dep_desc = 'Human Resorses'  where departamentID = 4;
+update department set departmantName = 'Customer Support', dep_desc = 'Customer Support'  where departamentID = 5;
+--Business part one 
+--1. ?? ?? ??????? ??????? ?? ??????? ?? ?????? ?????? ? ??????? 
+select * from department;
+--2. ?? ?? ??????? ???????? ?? ????????? ?????????????? ?? ?????? ?????????, ? ???????? ? ?????????? ?? ?????????? ????? ????? ?? ????????? ? ???????? ??????? 
+alter table employee add salary number;
+select firstName, lastName, salary from employee;
+--3. ?? ?? ??????? ??????? ?? ?????? ????????? ? ??????? ? ???????? ?????? ?? ?????????? ????? ????? ?? 
+--??????????? ? ?????????????? ??????, ????? ?? ?? ??????? ?? ????????????? ??????? ? ????? ??? ?? ????????? ????????? ? ?????.
+--??????? ?? ??????????? ?????? ?? ????? ? ????? ????? ? ??????. ??????? ?? ?????????? ? bankoftomarow.bg
+select firstName, lastName, lower(firstName || '.' || lastName || '@bankoftomarow.bg') as email from employee;
+
+--4. ???????? ?????? ????????? ????? ??????? ???????? ???? ?????? ?????????. 
+--?????? ????????? ?? ?????? ????? ??????? ? ?????????? ?? 5 ??????. 
+alter table employee add dateStarted date;
+update employee set dateStarted = to_date('01/07/2020','dd/mm/yyyy') where empoyeeID = 4;
+update employee set dateStarted = to_date('01/01/2018','dd/mm/yyyy') where empoyeeID = 1;
+update employee set dateStarted = to_date('01/01/2020','dd/mm/yyyy') where empoyeeID = 2;
+update employee set dateStarted = to_date('25/01/2021','dd/mm/yyyy') where empoyeeID = 3;
+
+select (firstName || ' ' || lastName ) as fullName, dateStarted from employee
+where dateStarted < add_months(sysdate, -60);
+--5. ???????? ?????? ?????????, ????? ????? (????? / ????? ??? ???????????? ???????? ??????? l) 
+select firstName, lastName from employee
+where lower(firstName) like '%i%' or lower(lastName) like '%i%';
+--business part 2
+
+create table employeeDepartmentChange(
+empoyeeID number,
+departamentID number,
+dateDep date,
+countChange number default(1)
+); 
+drop table employeedepartmentchange;
+drop trigger department_change_trigger;
+select * from employeedepartmentchange;
+create trigger department_change_trigger 
+after update on employee for each row
+begin
+    if :old.departamentID <> :new.departamentID then
+    insert into employeedepartmentchange(empoyeeid, departamentID, dateDep, countChange)
+    values(empoyeeID, departamentid, to_date(sysdate), countchange+1);
+    end if;
+end;
+
+-- 1
+insert into employeedepartmentchange values(1,1, to_date('01/07/2018','dd/mm/yyyy'), 0);
+insert into employeedepartmentchange values(2,3,  to_date('01/01/2020','dd/mm/yyyy'), 0);
+insert into employeedepartmentchange values(3,2,  to_date('01/01/2020','dd/mm/yyyy'), 0);
+insert into employeedepartmentchange values(4,2,  to_date('01/01/2021','dd/mm/yyyy'), 0);
+insert into employeedepartmentchange values(5, 1, to_date('01/07/2020','dd/mm/yyyy'), 0);
+insert into employeedepartmentchange values(6,4, to_date('01/07/2020','dd/mm/yyyy'), 0);
+insert into employeedepartmentchange values(7,4, to_date('01/07/2020','dd/mm/yyyy'), 0);
+insert into employeedepartmentchange values(8,5, to_date('01/03/2023','dd/mm/yyyy'), 0);
+commit;
+
+update employee set employee.departamentid = 2
+where employee.empoyeeid = 7;
+select * from employeeDepartmentChange;
+--2
+select empoyeeid, dateDep from employeedepartmentchange
+where dateDep < add_months(sysdate, -2);
+--3
+select empoyeeid from employeedepartmentchange where countChange = 0;
